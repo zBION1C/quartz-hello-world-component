@@ -1,10 +1,8 @@
 import { QuartzComponent } from '@quartz-community/types';
 
 interface ExampleComponentOptions {
-    prefix?: string;
-    suffix?: string;
-    className?: string;
+    favouriteNumber: number;
 }
-declare const _default: (opts?: ExampleComponentOptions) => QuartzComponent;
+declare const _default: (userOpts?: ExampleComponentOptions) => QuartzComponent;
 
 export { _default as ExampleComponent, type ExampleComponentOptions };
