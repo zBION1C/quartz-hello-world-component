@@ -9,24 +9,21 @@ import style from "./styles/example.scss";
 import script from "./scripts/example.inline.ts";
 
 export interface ExampleComponentOptions {
-  prefix?: string;
-  suffix?: string;
-  className?: string;
+  favouriteNumber: number;
 }
 
-export default ((opts?: ExampleComponentOptions) => {
-  const { prefix = "", suffix = "", className = "example-component" } = opts ?? {};
+const defaultOptions: ExampleComponentOptions = {
+  favouriteNumber: 42,
+}
+
+export default ((userOpts?: ExampleComponentOptions) => {
 
   const Component: QuartzComponent = (props: QuartzComponentProps) => {
-    const frontmatter = props.fileData?.frontmatter as { title?: string } | undefined;
-    const title = frontmatter?.title ?? "Untitled";
-    const fullText = `${prefix}${title}${suffix}`;
+    const opts = { ...defaultOptions, ...userOpts}
 
-    return <div class={classNames(className)}>{fullText}</div>;
+    if (opts?.favouriteNumber < 0) return null;
+    return <p>My favourite number is: {opts?.favouriteNumber}</p>
   };
-
-  Component.css = style;
-  Component.afterDOMLoaded = script;
 
   return Component;
 }) satisfies QuartzComponentConstructor;
