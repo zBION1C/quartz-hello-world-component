@@ -14,7 +14,7 @@ const defaultOptions: ExampleComponentOptions = {
 export default ((userOpts?: ExampleComponentOptions) => {
 
   const Component: QuartzComponent = () => {
-    const opts = { ...defaultOptions, ...userOpts}
+    const opts = { ...defaultOptions, ...userOpts }
 
     if (opts?.favouriteNumber < 0) return null;
     return <p>My favourite number is: {opts?.favouriteNumber}</p>
