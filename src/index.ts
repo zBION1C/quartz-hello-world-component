@@ -1,28 +1,26 @@
-export { ExampleTransformer } from "./transformer";
-export { ExampleFilter } from "./filter";
-export { ExampleEmitter } from "./emitter";
-export { default as ExampleComponent } from "./components/ExampleComponent";
-
-export type {
-  ExampleTransformerOptions,
-  ExampleFilterOptions,
-  ExampleEmitterOptions,
-} from "./types";
-
-export type { ExampleComponentOptions } from "./components/ExampleComponent";
-
-// Re-export shared types from @quartz-community/types
-export type {
+import {
   QuartzComponent,
-  QuartzComponentProps,
   QuartzComponentConstructor,
-  StringResource,
-  QuartzTransformerPlugin,
-  QuartzFilterPlugin,
-  QuartzEmitterPlugin,
-  QuartzPageTypePlugin,
-  QuartzPageTypePluginInstance,
-  PageMatcher,
-  PageGenerator,
-  VirtualPage,
-} from "@quartz-community/types";
+  QuartzComponentProps,
+} from "@quartz-community/types"
+
+interface Options {
+  favoriteNumber: number
+}
+
+const defaultOptions: Options = {
+  favoriteNumber: 42,
+}
+
+const MyComponent: QuartzComponentConstructor<Options> = (userOpts?: Options) => {
+  const opts = { ...defaultOptions, ...userOpts }
+
+  const Component: QuartzComponent = (props: QuartzComponentProps) => {
+    if (opts.favoriteNumber < 0) return null
+    return "<p>My favourite number is {opts.favoriteNumber}</p>"
+  }
+
+  return Component
+}
+
+export default MyComponent
